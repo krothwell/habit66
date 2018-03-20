@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import EmailSub from './EmailSub';
+import EmailContainer from '../connectors/EmailContainer';
 
 class User extends Component {
   errorUsername;
@@ -29,8 +29,8 @@ class User extends Component {
     return (
       <div>
         <h2>{this.state.langPack.h2logIn}</h2>
-        <form onSubmit={EmailSub.handleSubmit}>
-            <EmailSub
+        <form onSubmit={EmailContainer.handleSubmit}>
+            <EmailContainer
               langPack={this.props.langPack}
             />
         </form>

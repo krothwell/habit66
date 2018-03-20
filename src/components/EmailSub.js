@@ -7,7 +7,7 @@ import {
   handleInputChange
 } from '../utilities/Utilities_forms';
 
-class User extends Component {
+class EmailSub extends Component {
 
   constructor(props){
     super(props);
@@ -21,7 +21,6 @@ class User extends Component {
         email: '',
         usernameTouched: false,
         emailTouched: false,
-        emailFound: true,
         langPack:this.props.langPack.EmailSub
     };
 
@@ -90,9 +89,7 @@ class User extends Component {
       //registration process
 
       if(this.emailLogin === this.state.email) {
-        console.log("you entered the stored email");
-        //Redux function needs to be implemented and used here so that the User
-        //component state updates and triggers the app for login
+
       } else {
         console.log("the email you entered is incorrect");
         //Redux function needs to be implemented and used here so that the User
@@ -151,4 +148,4 @@ class User extends Component {
 }
 
 
-export default User;
+export default EmailSub;

@@ -1,16 +1,17 @@
 //Libraries
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from "redux";
+import { combineReducers, createStore } from "redux";
 import { Provider } from "react-redux"
 import * as firebase from 'firebase';
 import "bootstrap/dist/css/bootstrap.css";
 //Reducer
 import langReducer from "./reducers/LangReducer";
+import userReducer from "./reducers/UserReducer"
 //Style
 import './styles/index.css';
 //Connector
-import Container from './connectors/Container';
+import AppContainer from './connectors/AppContainer';
 
 var firebaseConfig = {
   apiKey: "AIzaSyCj0tf8h93rA2Iz-o_0M4cgL8UkxPCDCp0",
@@ -23,13 +24,16 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-var destination = document.querySelector("#container");
-
-var store = createStore(langReducer);
+const destination = document.querySelector("#container");
+const reducers = combineReducers({
+  lang:langReducer,
+  user:userReducer
+})
+const store = createStore(langReducer);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Container />
+    <AppContainer />
   </Provider>,
   destination
 );
