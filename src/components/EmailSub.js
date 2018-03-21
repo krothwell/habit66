@@ -76,8 +76,10 @@ class EmailSub extends Component {
   }
 
   handleSubmit(event) {
+    console.log("grr");
+    event.preventDefault();
     this.errorLogin = false;
-    //event.preventDefault();
+
     if (!canInputBeSubmitted(
         this.state.emailTouched,
         this.errorEmail
@@ -89,7 +91,7 @@ class EmailSub extends Component {
       //registration process
 
       if(this.emailLogin === this.state.email) {
-
+        this.props.setEmailFound(true);
       } else {
         console.log("the email you entered is incorrect");
         //Redux function needs to be implemented and used here so that the User
@@ -130,18 +132,20 @@ class EmailSub extends Component {
             placeholder={this.state.langPack.placeHolderEmail}
             onBlur={this.handleBlur}
             onChange={this.handleChange}
+            readOnly={this.props.emailFound}
         />
         <FormControl.Feedback />
         { this.errorEmail.length > 0 && this.state.emailTouched &&
             <HelpBlock>{this.errorEmail}</HelpBlock>
         }
-        <Button
-          type="button"
-          disabled={!isEnabled}
-          onMouseUp={this.handleSubmit}>
-
-          Submit
-        </Button>
+        { !this.props.emailFound &&
+          <Button
+            type="button"
+            disabled={!isEnabled}
+            onMouseUp={this.handleSubmit}>
+            Submit
+          </Button>
+        }
       </FormGroup>
     );
   }

@@ -1,18 +1,19 @@
 //Libraries
 import { connect } from 'react-redux';
 //Components
-import EmailSub from '../components/EmailSub'
+import User from '../components/User'
 
 function mapStateToProps(state) {
   return {
-    emailFound:state.emailFound
+    emailFound:state.user.emailFound
   }
 }
 
-function setEmailFound(dispatch, isFound) {
+function setEmailFound(dispatch, emailFound) {
+  console.log("setEmailFound:", emailFound);
   return dispatch({
     type:"setEmailFound",
-    emailFound:isFound
+    emailFound:emailFound
   })
 }
 
@@ -26,6 +27,6 @@ function mapDispatchToProps(dispatch) {
 var connectedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
-)(EmailSub);
+)(User);
 
 export default connectedComponent;

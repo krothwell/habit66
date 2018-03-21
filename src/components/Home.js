@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
-import User from './User';
+import UserContainer from '../connectors/UserContainer';
 
 
 class Home extends Component {
@@ -38,7 +38,7 @@ class Home extends Component {
           Cy
         </Button>
         <div id="slogan">{this.state.langPack.slogan}</div>
-        <User langPack={this.props.langPack}
+        <UserContainer langPack={this.props.langPack}
         />
       </div>
     );

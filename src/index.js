@@ -29,7 +29,7 @@ const reducers = combineReducers({
   lang:langReducer,
   user:userReducer
 })
-const store = createStore(langReducer);
+const store = createStore(reducers);
 
 ReactDOM.render(
   <Provider store={store}>

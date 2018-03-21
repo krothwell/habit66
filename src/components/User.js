@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import EmailContainer from '../connectors/EmailContainer';
+import EmailSub, { handleSubmit } from './EmailSub';
 
 class User extends Component {
   errorUsername;
@@ -21,17 +21,27 @@ class User extends Component {
   //     langData:
   //   })
   // }
+  submitHandler(e) {
+    e.preventDefault();
+    EmailSub.handleSubmit();
+  }
+
+  componentDidMount() {
+    this.props.setEmailFound(false);
+  }
+
 
 
   render() {
-    //const isEnabled = EmailSub.canBeSubmitted();
-    //console.log(this.props.langData.btnSubmit);
+    console.log(this.props);
     return (
       <div>
         <h2>{this.state.langPack.h2logIn}</h2>
-        <form onSubmit={EmailContainer.handleSubmit}>
-            <EmailContainer
+        <form onSubmit={this.submitHandler}>
+            <EmailSub
               langPack={this.props.langPack}
+              setEmailFound={this.props.setEmailFound}
+              emailFound={this.props.emailFound}
             />
         </form>
       </div>

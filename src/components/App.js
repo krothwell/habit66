@@ -38,7 +38,7 @@ class App extends Component {
           <div>
 
             <Home
-              langPack={this.props.langPack}
+              langPack={this.props.lang.langPack}
               getLangPackFromServer={this.getLangPackFromServer.bind(this)}
             />
           </div>

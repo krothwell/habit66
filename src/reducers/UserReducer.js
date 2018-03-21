@@ -1,7 +1,7 @@
 function userReducer(state, action) {
   if (state === undefined){
     return {
-      emailFound:false,
+      emailFound:false
     };
   }
   switch(action.type) {
