@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
-import EmailSub, { handleSubmit } from './EmailSub';
+import EmailSub from './EmailSub';
+import PasswordSub from './PasswordSub';
 
 class User extends Component {
   errorUsername;
@@ -11,9 +12,11 @@ class User extends Component {
   constructor(props){
     super(props);
 
+
     this.state = {
         langPack:this.props.langPack.User
     };
+
   }
 
   // componentDidMount(){
@@ -23,16 +26,12 @@ class User extends Component {
   // }
   submitHandler(e) {
     e.preventDefault();
-    EmailSub.handleSubmit();
-  }
-
-  componentDidMount() {
-    this.props.setEmailFound(false);
   }
 
 
 
   render() {
+
     console.log(this.props);
     return (
       <div>
@@ -40,9 +39,23 @@ class User extends Component {
         <form onSubmit={this.submitHandler}>
             <EmailSub
               langPack={this.props.langPack}
-              setEmailFound={this.props.setEmailFound}
               emailFound={this.props.emailFound}
+              setEmailFound={this.props.setEmailFound}
+              setEmailSubmitted={this.props.setEmailSubmitted}
+              emailSubmitted={this.props.emailSubmitted}
             />
+            { this.props.emailFound &&
+              <PasswordSub
+                langPack={this.props.langPack}
+                emailSubmitted={this.props.emailSubmitted}
+                setEmailFound={this.props.setEmailFound}
+                setEmailSubmitted={this.props.setEmailSubmitted}
+                setPasswordCorrect={this.props.setPasswordCorrect}
+              />
+            }
+            { this.props.passwordCorrect &&
+              <div>something</div>
+            }
         </form>
       </div>
     );

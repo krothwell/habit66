@@ -11,10 +11,8 @@ class EmailSub extends Component {
 
   constructor(props){
     super(props);
-
-    this.errorUsername = '';
+    this.emailLogin = "kmrothwell@gmail.com";
     this.errorEmail = '';
-    this.emailLogin = "kmrothwell@gmail.com"
 
     this.state = {
         username: '',
@@ -26,7 +24,7 @@ class EmailSub extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.submitEmail = this.submitEmail.bind(this);
   }
 
   // componentDidMount(){
@@ -75,11 +73,7 @@ class EmailSub extends Component {
     return myHandleChange();
   }
 
-  handleSubmit(event) {
-    console.log("grr");
-    event.preventDefault();
-    this.errorLogin = false;
-
+  submitEmail() {
     if (!canInputBeSubmitted(
         this.state.emailTouched,
         this.errorEmail
@@ -89,28 +83,11 @@ class EmailSub extends Component {
       //Once implemented, this will theoretically check the list of emails from
       //firebase, and if found show the password field, otherwise, begin
       //registration process
-
-      if(this.emailLogin === this.state.email) {
-        this.props.setEmailFound(true);
-      } else {
-        console.log("the email you entered is incorrect");
-        //Redux function needs to be implemented and used here so that the User
-        //component state updates and triggers the app for login
-      }
-
-      // // actual submit logic...
-      // if(this.id){
-      //   firebase.database().ref('/'+this.id).update({
-      //       username: this.state.username,
-      //       email: this.state.email
-      //     }).then(() => this.props.history.push("/"));
-      // }
-      // else{
-      //   firebase.database().ref('/').push({
-      //       username: this.state.username,
-      //       email: this.state.email
-      //     }).then(() => this.props.history.push("/"));
-      // }
+      console.log("setting email submitted...")
+      this.props.setEmailSubmitted(this.state.email);
+      console.log(this.props.emailSubmitted);
+      this.emailLogin === this.state.email ?
+        this.props.setEmailFound(true):this.props.setEmailFound(false);
     }
   }
 
@@ -142,7 +119,7 @@ class EmailSub extends Component {
           <Button
             type="button"
             disabled={!isEnabled}
-            onMouseUp={this.handleSubmit}>
+            onMouseUp={this.submitEmail}>
             Submit
           </Button>
         }
