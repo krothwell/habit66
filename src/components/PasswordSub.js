@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
 import {
   canInputBeSubmitted,
-  handleInputBlur,
-  handleInputChange
+  handleInputBlur
 } from '../utilities/Utilities_forms';
 
 class PasswordSub extends Component {
@@ -20,14 +19,14 @@ class PasswordSub extends Component {
         langPack:this.props.langPack.PasswordSub
     };
     console.log(this.props);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.submitPassword = this.submitPassword.bind(this);
     this.setUserDefault = this.setUserDefault.bind(this);
   }
 
   getPasswordValidationState() {
-    const length = this.state.password.length;
+    const length = this.props.password.length;
 
     if(this.state.passwordTouched){
         if (length === 0){
@@ -50,9 +49,11 @@ class PasswordSub extends Component {
     myHandleBlur();
   }
 
-  handleChange(e) {
-    let myHandleChange = handleInputChange.bind(this, e, 'password');
-    return myHandleChange();
+  handleInputChange(e) {
+    const target = e.target;
+    const value = target.value;
+
+    this.props.setPassword(value);
   }
 
   submitPassword() {
@@ -64,8 +65,9 @@ class PasswordSub extends Component {
     } else {
       //get user habits, etc.
 
-      this.passwordLogin === this.state.password ?
+      this.passwordLogin === this.props.password ?
         this.props.setPasswordCorrect(true):this.props.setPasswordCorrect(false);
+        this.props.setLoggedOn(true,this.props.email)
     }
   }
 
@@ -85,15 +87,15 @@ class PasswordSub extends Component {
         validationState={this.getPasswordValidationState()}
         >
         <ControlLabel>
-          {this.state.langPack.lblEnterPassword + this.props.emailSubmitted}
+          {this.state.langPack.lblEnterPassword + this.props.email}
         </ControlLabel>
         <FormControl
             name="password"
             type="text"
-            value={this.state.password}
+            value={this.props.password}
             placeholder={this.state.langPack.placeHolderPassword}
             onBlur={this.handleBlur}
-            onChange={this.handleChange}
+            onChange={this.handleInputChange}
         />
         <FormControl.Feedback />
         { this.errorPassword.length > 0 && this.state.passwordTouched &&

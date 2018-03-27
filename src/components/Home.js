@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import UserContainer from '../connectors/UserContainer';
+import Nav from './Nav';
 
 
 class Home extends Component {
@@ -24,22 +25,34 @@ class Home extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div>
-        <h1>{this.state.langPack.h1Main}</h1>
-        <Button
-          type="button"
-          onMouseUp={this.changeToEnglish}>
-          En
-        </Button>
-        <Button
-          type="button"
-          onMouseUp={this.changeToWelsh}>
-          Cy
-        </Button>
-        <div id="slogan">{this.state.langPack.slogan}</div>
-        <UserContainer langPack={this.props.langPack}
-        />
+        {!this.props.loggedOn &&
+          <div>
+            <h1>{this.state.langPack.h1Main}</h1>
+            <Button
+              type="button"
+              onMouseUp={this.changeToEnglish}>
+              En
+            </Button>
+            <Button
+              type="button"
+              onMouseUp={this.changeToWelsh}>
+              Cy
+            </Button>
+            <div id="slogan">{this.state.langPack.slogan}</div>
+            <UserContainer
+              langPack={this.props.langPack}
+              setLoggedOn={this.props.setLoggedOn}
+            />
+          </div>
+        }
+        {this.props.loggedOn &&
+          <Nav
+            langPack={this.props.langPack}
+          />
+        }
       </div>
     );
   }

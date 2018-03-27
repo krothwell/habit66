@@ -8,7 +8,9 @@ import '../styles/App.css';
 function mapStateToProps(state) {
   return {
     lang:state.lang,
-    langPack:state.langPack
+    langPack:state.langPack,
+    loggedOn: state.user.loggedOn,
+    userName: state.user.userName
   }
 }
 
@@ -22,10 +24,19 @@ function changeLang(dispatch, lang, langPack) {
   })
 }
 
+function setLoggedOn(dispatch, loggedOn, userName) {
+  return dispatch({
+    type:"setLoggedOn",
+    loggedOn:loggedOn,
+    userName:userName
+  })
+}
+
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeLang:changeLang.bind(this,dispatch)
+    changeLang:changeLang.bind(this,dispatch),
+    setLoggedOn:setLoggedOn.bind(this,dispatch)
   }
 }
 
@@ -36,27 +47,6 @@ var connectedComponent = connect(
 )(App);
 
 export default connectedComponent;
-
-  // render() {
-  //   return (
-  //     <div>
-  //       <Home />
-  //     </div>
-        // <BrowserRouter>
-        //   <div>
-        //     <Switch>
-        //       <Route path="/edit/:id" component={Userform}/
-        //       <Route exact path="/" component={User}/>
-        //       <Route exact path="/add" component={Userform}/>
-        //       <Route path="/*" component={NotFound}/>
-        //     </Switch>
-        //   </div>
-        // </BrowserRouter>
-        //<Home />
-
-//     );
-//   }
-// }
 
 // class NotFound extends Component {
 //   render() {

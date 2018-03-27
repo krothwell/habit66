@@ -2,9 +2,11 @@ function userReducer(state, action) {
   if (state === undefined){
     return {
       emailFound:false,
-      emailSubmitted:'',
+      email:'',
       passwordCorrect:false,
-      passwordSubmitted:''
+      password:'',
+      loggedOn:false,
+      userName:''
     };
   }
   switch(action.type) {
@@ -13,20 +15,26 @@ function userReducer(state, action) {
         ...state,
         emailFound:action.emailFound
       }
-    case "setEmailSubmitted":
+    case "setEmail":
       return {
         ...state,
-        emailSubmitted:action.emailSubmitted
+        email:action.email
       }
       case "setPasswordCorrect":
         return {
           ...state,
           passwordCorrect:action.passwordCorrect
         }
-      case "setPasswordSubmitted":
+      case "setPassword":
         return {
           ...state,
-          emailSubmitted:action.passwordSubmitted
+          password:action.password
+        }
+      case "setLoggedOn":
+        return {
+          ...state,
+          loggedOn:action.loggedOn,
+          userName:action.userName
         }
     default:
       return state;

@@ -11,13 +11,3 @@ const handleInputBlur = function(blurState) {
 }
 
 export {handleInputBlur};
-
-const handleInputChange = function(e, valueState) {
-  const target = e.target;
-  const value = target.value;
-
-  this.setState({
-    [valueState]: value
-  });
-}
-export {handleInputChange};

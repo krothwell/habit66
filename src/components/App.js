@@ -16,7 +16,7 @@ class App extends Component {
     console.log("Getting language pack from " + pathName);
     firebase.database().ref(pathName).once('value', snapshot => {
       this.props.changeLang(lang, snapshot.val());
-      console.log(snapshot.val());
+      console.log("langPack retured: ",snapshot.val());
       this.setState({langDataIsLoading:false});
     });
   }
@@ -40,6 +40,9 @@ class App extends Component {
             <Home
               langPack={this.props.lang.langPack}
               getLangPackFromServer={this.getLangPackFromServer.bind(this)}
+              setLoggedOn={this.props.setLoggedOn}
+              loggedOn={this.props.loggedOn}
+              userName={this.props.userName}
             />
           </div>
         }

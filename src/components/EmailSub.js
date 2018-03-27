@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
 import {
   canInputBeSubmitted,
-  handleInputBlur,
-  handleInputChange
+  handleInputBlur
 } from '../utilities/Utilities_forms';
 
 class EmailSub extends Component {
@@ -15,14 +14,12 @@ class EmailSub extends Component {
     this.errorEmail = '';
 
     this.state = {
-        username: '',
-        email: '',
         usernameTouched: false,
         emailTouched: false,
         langPack:this.props.langPack.EmailSub
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.submitEmail = this.submitEmail.bind(this);
   }
@@ -41,7 +38,7 @@ class EmailSub extends Component {
   // }
 
   getEmailValidationState() {
-    const length = this.state.email.length;
+    const length = this.props.email.length;
 
     if(this.state.emailTouched){
         if (length === 0){
@@ -52,7 +49,7 @@ class EmailSub extends Component {
           this.errorEmail = 'Email should be minimum 3 characters';
           return 'error';
         }
-        else if(this.state.email.indexOf('@') === -1){
+        else if(this.props.email.indexOf('@') === -1){
           this.errorEmail = 'Email should contain @';
           return 'error';
         }
@@ -68,9 +65,13 @@ class EmailSub extends Component {
     myHandleBlur();
   }
 
-  handleChange(e) {
-    let myHandleChange = handleInputChange.bind(this, e, 'email');
-    return myHandleChange();
+  handleInputChange(e) {
+    //let myHandleChange = handleInputChange.bind(this, e, 'email');
+    //return myHandleChange();
+    const target = e.target;
+    const value = target.value;
+
+    this.props.setEmail(value);
   }
 
   submitEmail() {
@@ -83,10 +84,8 @@ class EmailSub extends Component {
       //Once implemented, this will theoretically check the list of emails from
       //firebase, and if found show the password field, otherwise, begin
       //registration process
-      console.log("setting email submitted...")
-      this.props.setEmailSubmitted(this.state.email);
-      console.log(this.props.emailSubmitted);
-      this.emailLogin === this.state.email ?
+      this.props.setEmail(this.props.email);
+      this.emailLogin === this.props.email ?
         this.props.setEmailFound(true):this.props.setEmailFound(false);
     }
   }
@@ -105,10 +104,10 @@ class EmailSub extends Component {
         <FormControl
             name="email"
             type="text"
-            value={this.state.email}
+            value={this.props.email}
             placeholder={this.state.langPack.placeHolderEmail}
             onBlur={this.handleBlur}
-            onChange={this.handleChange}
+            onChange={this.handleInputChange}
             readOnly={this.props.emailFound}
         />
         <FormControl.Feedback />

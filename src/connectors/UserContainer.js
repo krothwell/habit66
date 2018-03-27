@@ -6,9 +6,9 @@ import User from '../components/User'
 function mapStateToProps(state) {
   return {
     emailFound:state.user.emailFound,
-    emailSubmitted:state.user.emailSubmitted,
+    email:state.user.email,
     passwordCorrect:state.user.passwordCorrect,
-    passwordSubmitted:state.user.passwordSubmitted
+    password:state.user.password
   }
 }
 
@@ -19,10 +19,10 @@ function setEmailFound(dispatch, emailFound) {
   })
 }
 
-function setEmailSubmitted(dispatch, emailSubmitted) {
+function setEmail(dispatch, email) {
   return dispatch({
-    type:"setEmailSubmitted",
-    emailSubmitted:emailSubmitted
+    type:"setEmail",
+    email:email
   })
 }
 
@@ -33,19 +33,19 @@ function setPasswordCorrect(dispatch, passwordCorrect) {
   })
 }
 
-function setPasswordSubmitted(dispatch, passwordSubmitted) {
+function setPassword(dispatch, password) {
   return dispatch({
-    type:"setPasswordSubmitted",
-    passwordSubmitted:passwordSubmitted
+    type:"setPassword",
+    password:password
   })
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     setEmailFound:setEmailFound.bind(this,dispatch),
-    setEmailSubmitted:setEmailSubmitted.bind(this,dispatch),
+    setEmail:setEmail.bind(this,dispatch),
     setPasswordCorrect:setPasswordCorrect.bind(this,dispatch),
-    setPasswordSubmitted:setPasswordSubmitted.bind(this,dispatch)
+    setPassword:setPassword.bind(this,dispatch)
   }
 }
 
