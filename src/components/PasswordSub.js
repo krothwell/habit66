@@ -1,10 +1,6 @@
 
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
-import {
-  canInputBeSubmitted,
-  handleInputBlur
-} from '../utilities/Utilities_forms';
 
 class PasswordSub extends Component {
 
@@ -15,38 +11,31 @@ class PasswordSub extends Component {
 
     this.state = {
         password: '',
-        passwordTouched: false,
-        langPack:this.props.langPack.PasswordSub
+        langPack:this.props.langPack.PasswordSub,
+        subAttempt:false
     };
     console.log(this.props);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
     this.submitPassword = this.submitPassword.bind(this);
     this.setUserDefault = this.setUserDefault.bind(this);
   }
 
   getPasswordValidationState() {
-    const length = this.props.password.length;
-
-    if(this.state.passwordTouched){
-        if (length === 0){
-          this.errorPassword = 'Password is required';
-          return 'error';
-        }
-        else if (length < 3){
-          this.errorPassword = 'Password should be minimum 3 characters';
-          return 'error';
-        }
-        else {
-          this.errorPassword = '';
-          return 'success'
-        }
-      }
+    const length = this.errorPassword.length;
+    return (length>0) ? 'error' : 'success';
   }
 
-  handleBlur(e){
-    let myHandleBlur = handleInputBlur.bind(this, 'passwordTouched');
-    myHandleBlur();
+  setPasswordErrorMsg() {
+    const length = this.props.password.length;
+    if (length === 0){
+      this.errorPassword = 'Email is required';
+    }
+    else if (length < 3){
+      this.errorPassword = 'Email should be minimum 3 characters';
+    }
+    else {
+      this.errorPassword = '';
+    }
   }
 
   handleInputChange(e) {
@@ -57,14 +46,12 @@ class PasswordSub extends Component {
   }
 
   submitPassword() {
-    if (!canInputBeSubmitted(
-        this.state.passwordTouched,
-        this.errorPassword
-    )) {
-      return;
+    this.setPasswordErrorMsg();
+    if (this.errorPassword.length > 0) {
+      this.setState({
+        subAttempt:true
+      });
     } else {
-      //get user habits, etc.
-
       this.passwordLogin === this.props.password ?
         this.props.setPasswordCorrect(true):this.props.setPasswordCorrect(false);
         this.props.setLoggedOn(true,this.props.email)
@@ -73,14 +60,10 @@ class PasswordSub extends Component {
 
   setUserDefault() {
     this.props.setEmailFound(false);
-    this.props.setEmailSubmitted('');
+    this.props.setPassword('');
   }
 
   render() {
-    const isEnabled = canInputBeSubmitted(
-      this.state.passwordTouched,
-      this.errorPassword
-    );
     return (
       <FormGroup
         controlId="formBasicText"
@@ -94,11 +77,12 @@ class PasswordSub extends Component {
             type="text"
             value={this.props.password}
             placeholder={this.state.langPack.placeHolderPassword}
-            onBlur={this.handleBlur}
             onChange={this.handleInputChange}
         />
         <FormControl.Feedback />
-        { this.errorPassword.length > 0 && this.state.passwordTouched &&
+        { this.errorPassword.length > 0 &&
+          this.state.passwordTouched &&
+          this.state.subAttempt &&
             <HelpBlock>{this.errorPassword}</HelpBlock>
         }
           <Button
@@ -109,7 +93,7 @@ class PasswordSub extends Component {
           <Button
             type="button"
             onMouseUp={this.submitPassword}
-            disabled={!isEnabled}
+            disabled={this.props.password.length===0}
           >
             {this.state.langPack.btnLogIn}
           </Button>

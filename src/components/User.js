@@ -37,6 +37,7 @@ class User extends Component {
               emailFound={this.props.emailFound}
               setEmailFound={this.props.setEmailFound}
               setEmail={this.props.setEmail}
+              setPassword={this.props.setPassword}
               email={this.props.email}
             />
         {this.props.emailFound &&

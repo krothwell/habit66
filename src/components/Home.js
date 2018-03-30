@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import UserContainer from '../connectors/UserContainer';
-import Nav from './Nav';
+import Navigation from './Navigation';
 
 
 class Home extends Component {
@@ -45,12 +45,15 @@ class Home extends Component {
             <UserContainer
               langPack={this.props.langPack}
               setLoggedOn={this.props.setLoggedOn}
+              setEmailFound={this.props.setEmailFound}
             />
           </div>
         }
         {this.props.loggedOn &&
-          <Nav
+          <Navigation
             langPack={this.props.langPack}
+            setLoggedOn={this.props.setLoggedOn}
+            setEmailFound={this.props.setEmailFound}
           />
         }
       </div>

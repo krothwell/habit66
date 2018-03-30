@@ -12,13 +12,6 @@ function mapStateToProps(state) {
   }
 }
 
-function setEmailFound(dispatch, emailFound) {
-  return dispatch({
-    type:"setEmailFound",
-    emailFound:emailFound
-  })
-}
-
 function setEmail(dispatch, email) {
   return dispatch({
     type:"setEmail",
@@ -42,7 +35,6 @@ function setPassword(dispatch, password) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setEmailFound:setEmailFound.bind(this,dispatch),
     setEmail:setEmail.bind(this,dispatch),
     setPasswordCorrect:setPasswordCorrect.bind(this,dispatch),
     setPassword:setPassword.bind(this,dispatch)

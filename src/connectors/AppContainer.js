@@ -9,6 +9,7 @@ function mapStateToProps(state) {
   return {
     lang:state.lang,
     langPack:state.langPack,
+    emailFound:state.user.emailFound,
     loggedOn: state.user.loggedOn,
     userName: state.user.userName
   }
@@ -32,11 +33,18 @@ function setLoggedOn(dispatch, loggedOn, userName) {
   })
 }
 
+function setEmailFound(dispatch, emailFound) {
+  return dispatch({
+    type:"setEmailFound",
+    emailFound:emailFound
+  })
+}
 
 function mapDispatchToProps(dispatch) {
   return {
     changeLang:changeLang.bind(this,dispatch),
-    setLoggedOn:setLoggedOn.bind(this,dispatch)
+    setLoggedOn:setLoggedOn.bind(this,dispatch),
+    setEmailFound:setEmailFound.bind(this,dispatch)
   }
 }
 

@@ -43,6 +43,7 @@ class App extends Component {
               setLoggedOn={this.props.setLoggedOn}
               loggedOn={this.props.loggedOn}
               userName={this.props.userName}
+              setEmailFound={this.props.setEmailFound}
             />
           </div>
         }
